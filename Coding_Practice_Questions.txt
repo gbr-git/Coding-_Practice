@@ -1,0 +1,430 @@
+1. Let's learn about list comprehensions! You are given three integers  and  representing the dimensions of a cuboid along with an integer . Print a list of all possible coordinates given by  on a 3D grid where the sum of  is not equal to . Here, . Please use list comprehensions rather than multiple loops, as a learning exercise.
+Each variable  and  will have values of  or . All permutations of lists in the form .
+Remove all arrays that sum to  to leave only the valid permutations.
+
+Sample Input 1
+
+2
+2
+2
+2
+Sample Output 1
+
+[[0, 0, 0], [0, 0, 1], [0, 1, 0], [0, 1, 2], [0, 2, 1], [0, 2, 2], [1, 0, 0], [1, 0, 2], [1, 1, 1], [1, 1, 2], [1, 2, 0], [1, 2, 1], [1, 2, 2], [2, 0, 1], [2, 0, 2], [2, 1, 0], [2, 1, 1], [2, 1, 2], [2, 2, 0], [2, 2, 1], [2, 2, 2]]
+
+Solution:
+
+if __name__ == '__main__':
+    x = int(input())
+    y = int(input())
+    z = int(input())
+    n = int(input())
+
+    # Using list comprehension to generate the coordinates
+    coordinates = [[i, j, k] for i in range(x + 1) for j in range(y + 1) for k in range(z + 1)]
+
+    # Using list comprehension to filter out the coordinates with sum   not equal to n
+    result = [coord for coord in coordinates if sum(coord) != n]
+
+    print(result)
+
+
+2. Return second highest element:
+
+Input:
+Copy code
+5
+2 3 6 6 5
+Output:
+
+Copy code
+5
+Explanation:
+Given list is [2, 3, 6, 6, 5]. The unique scores are [2, 3, 5, 6]. After sorting in descending order, we get [6, 5, 3, 2]. The runner-up score is 5.
+
+n = int(input())
+scores = list(map(int, input().split()))
+unique_scores = set(scores)
+sorted_scores = sorted(unique_scores, reverse=True)
+runner_up_score = sorted_scores[1]
+print(runner_up_score)
+
+
+3. Given the names and grades for each student in a class of  students, store them in a nested list and print the name(s) of any student(s) having the second lowest grade.
+
+Note: If there are multiple students with the second lowest grade, order their names alphabetically and print each name on a new line.
+
+Sample Input 0
+
+5
+Harry
+37.21
+Berry
+37.21
+Tina
+37.2
+Akriti
+41
+Harsh
+39
+Sample Output 0
+
+Berry
+Harry
+Explanation 0
+
+There are  students in this class whose names and grades are assembled to build the following list:
+
+python students = [['Harry', 37.21], ['Berry', 37.21], ['Tina', 37.2], ['Akriti', 41], ['Harsh', 39]]
+
+The lowest grade of  belongs to Tina. The second lowest grade of  belongs to both Harry and Berry, so we order their names alphabetically and print each name on a new line.
+
+if __name__ == '__main__':
+    students = []
+    for _ in range(int(input())):
+        name = input()
+        score = float(input())
+        students.append([name, score])
+grades = sorted(set(student[1] for student in students))
+second_lowest_grade = grades[1]
+second_lowest_students = [student[0] for student in students if student[1] == second_lowest_grade]
+second_lowest_students.sort()
+for student in second_lowest_students:
+    print(student)
+
+
+4.Consider a list (list = []). You can perform the following commands:
+
+insert i e: Insert integer  at position .
+print: Print the list.
+remove e: Delete the first occurrence of integer .
+append e: Insert integer  at the end of the list.
+sort: Sort the list.
+pop: Pop the last element from the list.
+reverse: Reverse the list.
+Initialize your list and read in the value of  followed by  lines of commands where each command will be of the  types listed above. Iterate through each command in order and perform the corresponding operation on your list.
+
+if __name__ == '__main__':
+    num_commands = int(input())
+    # Initialize an empty list
+    my_list = []
+
+    # Function to process the commands
+    def process_commands():
+        for i in range(num_commands):
+            command = input().split()
+            if command[0] == "insert":
+                my_list.insert(int(command[1]), int(command[2]))
+            elif command[0] == "print":
+                print(my_list)
+            elif command[0] == "remove":
+                my_list.remove(int(command[1]))
+            elif command[0] == "append":
+                my_list.append(int(command[1]))
+            elif command[0] == "sort":
+                my_list.sort()
+            elif command[0] == "pop":
+                my_list.pop()
+            elif command[0] == "reverse":
+                my_list.reverse()
+
+    # Process the commands
+    process_commands()
+
+
+5. A company has released a new internal system, and each employee has been assigned a username. Employees are allowed to change their usernames but only in a limited way. More specifically, they can choose letters at two different positions and swap them. For example, the username "bigfish" can be changed to "gibfish" (swapping 'b' and 'g') or "bighisf" (swapping 'f' and 'h'). The manager would like to know which employees can update their usernames so that the new username is smaller in alphabetical order than the original username.
+
+For each username given, return either "YES" or "NO" based on whether that username can be changed (with one swap) to a new one that is smaller in alphabetical order.
+
+for example usernames = ["bee", "superhero", "ace"]
+
+For the first username, "bee", it is not possible to make one swap to change it to a smaller one in alphabetical order, so the answer is "NO". For the second username, "superhero", it is possible to possible get a new username that is smaller in alphabetical order (for example, by swapping letters 's' and 'h' to get "hupersero"), so the answer is "YES". Finally, for the last username "ace", it is not possible to make one swap to change it to a smaller one in alphabetical order, so the answer is "NO". Therefore you would return the array of strings ["NO", "YES", "NO"].
+ChatGPT
+Here is a Python code that solves the problem:
+
+def can_change_to_smaller(username):
+    for i in range(len(username)-1):
+        if username[i] > min(username[i+1:]):
+            return "YES"
+    return "NO"
+
+def process_usernames(usernames):
+    return [can_change_to_smaller(username) for username in usernames]
+
+# Example usage
+usernames = ["bee", "superhero", "ace"]
+results = process_usernames(usernames)
+print(results)
+
+
+6. An institutional broker wants to review their book of customers to see which are most active.  Given a list of trades by customer name, determine which customers account for at least 5% of the total number of trades.  Order the list alphabetically ascending by name.
+
+N = 23
+customers = ["Bigcorp", "Bigcorp", "Acme", "Bigcorp", "Zork", "Zork", "Abc", "Bigcorp", "Acme", "Bigcorp", "Bigcorp", "Zork", "Bigcorp", "Zork", "Zork", "Bigcorp", "Acme", "Bigcorp", "Acme", "Bigcorp", "Acme", "Littlecorp", "Nadircorp"]
+
+Bigcorp had 10 trades out of 23, which is 43.48% of the total trades.
+Both Acme and Zork had 5 trades, which is 21.74% of the total trades.
+The Littlecorp, Nadir, and Abc had 1 trade each, which is 4.35% of the total trades.
+So the answer is ["Acme", "Bigcorp", "Zork"] (in alphabetical order) because only these three companies placed at least 5% of the trades.
+
+def most_active_customers(customers):
+    customer_counts = {}
+    
+    for customer in customers:
+        if customer in customer_counts:
+            customer_counts[customer] += 1
+        else:
+            customer_counts[customer] = 1
+    
+    active_customers = []
+    threshold = len(customers) * 0.05
+    
+    for customer, count in customer_counts.items():
+        if count >= threshold:
+            active_customers.append(customer)
+    
+    return sorted(active_customers)
+
+# Example usage
+customers = ["Bigcorp", "Bigcorp", "Acme", "Bigcorp", "Zork", "Zork", "Abc", "Bigcorp", "Acme", "Bigcorp", "Bigcorp", "Zork", "Bigcorp", "Zork", "Zork", "Bigcorp", "Acme", "Bigcorp", "Acme", "Bigcorp", "Acme", "Littlecorp", "Nadircorp"]
+
+active_customers = most_active_customers(customers)
+print(active_customers)
+
+
+7. Convert 24 Hour time to 12 hour time?
+
+def convert_to_24_hour(time_12_hour):
+    # Split the input time into hours, minutes, and seconds
+    hours, minutes, seconds = map(int, time_12_hour[:-2].split(':'))
+    print(seconds)
+    
+    # Extract AM/PM information
+    am_pm = time_12_hour[-2:]
+    print(am_pm)
+    if am_pm == 'PM' and hours != 12:
+        hours += 12
+    elif am_pm == 'AM' and hours == 12:
+        hours = 0
+    
+    return f'{hours:02d}:{minutes:02d}:{seconds:02d}'
+
+# Example usage
+time_12_hour_1 = '12:01:00AM'
+time_12_hour_2 = '12:01:00PM'
+
+time_24_hour_1 = convert_to_24_hour(time_12_hour_1)
+time_24_hour_2 = convert_to_24_hour(time_12_hour_2)
+
+print(time_24_hour_1)  # Output: 00:01:00
+print(time_24_hour_2)  # Output: 12:01:00
+
+
+
+8. Every student receives a  in the inclusive range from  to .
+Any  less than  is a failing grade.
+Sam is a professor at the university and likes to round each student's  according to these rules:
+
+If the difference between the  and the next multiple of  is less than , round  up to the next multiple of .
+If the value of  is less than , no rounding occurs as the result will still be a failing grade.
+Examples
+
+ round to  (85 - 84 is less than 3)
+ do not round (result is less than 40)
+ do not round (60 - 57 is 3 or higher)
+Given the initial value of  for each of Sam's  students, write code to automate the rounding process.
+
+def round_grades(grades):
+    rounded_grades = []
+    for grade in grades:
+        if grade < 38 or grade % 5 < 3:
+            rounded_grades.append(grade)
+        else:
+            rounded_grades.append(grade + (5 - (grade % 5)))
+    return rounded_grades
+
+# Example usage
+grades = [73, 67, 38, 33, 99]
+
+rounded_grades = round_grades(grades)
+print(rounded_grades)
+
+9. Given an array of bird sightings where every element represents a bird type id, determine the id of the most frequently sighted type. If more than 1 type has been spotted that maximum amount, return the smallest of their ids.
+
+Example
+
+There are two each of types  and , and one sighting of type . Pick the lower of the two types seen twice: type 1.
+
+def migratoryBirds(arr):
+    bird_counts = [0] * 6  # Initialize a list to count occurrences of each bird type
+    
+    for bird_type in arr:
+        bird_counts[bird_type] += 1
+    
+    max_count = max(bird_counts)
+    max_bird_types = [i for i, count in enumerate(bird_counts) if count == max_count]
+    
+    return min(max_bird_types)
+
+# Example usage
+arr = [1, 4, 4, 4, 5, 3]
+
+result = migratoryBirds(arr)
+print(result)  # Output: 4
+
+
+10. A teacher asks the class to open their books to a page number. A student can either start turning pages from the front of the book or from the back of the book. They always turn pages one at a time. When they open the book, page  is always on the right side:
+
+When they flip page , they see pages  and . Each page except the last page will always be printed on both sides. The last page may only be printed on the front, given the length of the book. If the book is  pages long, and a student wants to turn to page , what is the minimum number of pages to turn? They can start at the beginning or the end of the book.
+
+Given  and , find and print the minimum number of pages that must be turned in order to arrive at page .
+
+
+def min_page_turns(n, p):
+    from_front = p // 2
+    from_back = (n // 2) - (p // 2)
+
+    return min(from_front, from_back)
+
+# Example Usage
+n = 5  # Total number of pages
+p = 4  # The target page
+result = min_page_turns(n, p)
+print(result)  # Output: 0
+
+
+11. An avid hiker keeps meticulous records of their hikes. During the last hike that took exactly  steps, for every step it was noted if it was an uphill, , or a downhill,  step. Hikes always start and end at sea level, and each step up or down represents a  unit change in altitude. We define the following terms:
+
+A mountain is a sequence of consecutive steps above sea level, starting with a step up from sea level and ending with a step down to sea level.
+A valley is a sequence of consecutive steps below sea level, starting with a step down from sea level and ending with a step up to sea level.
+Given the sequence of up and down steps during a hike, find and print the number of valleys walked through.
+
+Example
+
+ 
+
+The hiker first enters a valley  units deep. Then they climb out and up onto a mountain  units high. Finally, the hiker returns to sea level and ends the hike.
+
+Function Description
+
+Complete the countingValleys function in the editor below.
+
+countingValleys has the following parameter(s):
+
+int steps: the number of steps on the hike
+string path: a string describing the path
+Returns
+
+int: the number of valleys traversed
+Input Format
+
+The first line contains an integer , the number of steps in the hike.
+The second line contains a single string , of  characters that describe the path.
+
+Constraints
+
+Sample Input
+
+8
+UDDDUDUU
+Sample Output
+
+1
+
+def countingValleys(steps, path):
+    sea_level = 0
+    valleys = 0
+    in_valley = False
+    
+    for step in path:
+        if step == 'U':
+            sea_level += 1
+        else:
+            sea_level -= 1
+        
+        if sea_level < 0 and not in_valley:
+            in_valley = True
+            valleys += 1
+        elif sea_level >= 0:
+            in_valley = False
+    
+    return valleys
+
+# Example Usage
+steps = 8
+path = "UDDDUDUU"
+result = countingValleys(steps, path)
+print(result)  # Output: 1
+
+
+12. A person wants to determine the most expensive computer keyboard and USB drive that can be purchased with a give budget. Given price lists for keyboards and USB drives and a budget, find the cost to buy them. If it is not possible to buy both items, return .
+
+Example
+
+
+
+The person can buy a , or a . Choose the latter as the more expensive option and return .
+
+Function Description
+
+Complete the getMoneySpent function in the editor below.
+
+getMoneySpent has the following parameter(s):
+
+int keyboards[n]: the keyboard prices
+int drives[m]: the drive prices
+int b: the budget
+Returns
+
+int: the maximum that can be spent, or  if it is not possible to buy both items
+
+
+Two cats and a mouse are at various positions on a line. You will be given their starting positions. Your task is to determine which cat will reach the mouse first, assuming the mouse does not move and the cats travel at equal speed. If the cats arrive at the same time, the mouse will be allowed to move and it will escape while they fight.
+
+You are given  queries in the form of , , and  representing the respective positions for cats  and , and for mouse . Complete the function  to return the appropriate answer to each query, which will be printed on a new line.
+
+If cat  catches the mouse first, print Cat A.
+If cat  catches the mouse first, print Cat B.
+If both cats reach the mouse at the same time, print Mouse C as the two cats fight and mouse escapes.
+Example
+
+
+
+
+The cats are at positions  (Cat A) and  (Cat B), and the mouse is at position . Cat B, at position  will arrive first since it is only  unit away while the other is  units away. Return 'Cat B'.
+
+Function Description
+
+Complete the catAndMouse function in the editor below.
+
+catAndMouse has the following parameter(s):
+
+int x: Cat 's position
+int y: Cat 's position
+int z: Mouse 's position
+Returns
+
+string: Either 'Cat A', 'Cat B', or 'Mouse C'
+
+def catAndMouse(x, y, z):
+    dist_cat_a = abs(x - z)
+    dist_cat_b = abs(y - z)
+    
+    if dist_cat_a < dist_cat_b:
+        return "Cat A"
+    elif dist_cat_b < dist_cat_a:
+        return "Cat B"
+    else:
+        return "Mouse C"
+
+# Example Usage
+result1 = catAndMouse(1, 2, 3)
+result2 = catAndMouse(1, 3, 2)
+
+print(result1)  # Output: "Cat B"
+print(result2)  # Output: "Mouse C"
+
+
+
+
+
